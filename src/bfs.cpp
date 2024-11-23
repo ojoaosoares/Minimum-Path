@@ -4,9 +4,9 @@
 #include "map.hpp"
 
 pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
-    // Input: (Graph_Ad_List) Graph, (int) the start vertice
+    // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
     // Complexity: O(V + E)
-    // Output: (bool) true if all vertices were reached, (vector) a vector containg all vertices predecessors, (int) the fullDistance
+    // Output: double path size, vector<pair<int, int>> path
 
     if (map[y1-1][x1-1] == WALL || map[y2-1][x2-1] == WALL)
         throw invalid_argument("Coordinates invalid");
