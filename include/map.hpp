@@ -10,6 +10,6 @@ using namespace std;
 
 typedef long long ll;
 
-vector<vector<ll>> readMap(const string &pathfile);
+vector<vector<ll>> readMap(const string &filename);
 
 #endif
