@@ -1,4 +1,5 @@
 #include "map.hpp"
+#include "bfs.hpp"
 #include <iostream>
 #include <map>
 
@@ -38,11 +39,13 @@ int main(int argc, char const *argv[])
     
     auto methodMapIt = methodMap.find(algId);
 
+    pair<double, vector<pair<ull, ull>>> sizeAndPath;
+
     if (methodMapIt != methodMap.end())
         switch (methodMapIt->second)
         {
         case BFS_ID:
-            /* code */
+            sizeAndPath = bfs(map, startX, startY, endX, endY);
             break;
         case IDS_ID:
             /* code */
@@ -66,6 +69,14 @@ int main(int argc, char const *argv[])
         cout << "Unknown method\n";
         return 1;
     }
+
+    cout << sizeAndPath.first << ' ';
+
+    for (pair<ull, ull> coor : sizeAndPath.second)
+        cout << '(' << coor.first << ", " << coor.second << ") ";
+    
+    cout << '\n';
+    
 
 
     return 0;

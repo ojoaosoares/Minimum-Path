@@ -1,0 +1,33 @@
+{
+    "configurations": [
+    {
+        "name": "(gdb) Launch",
+        "type": "cppdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/pathfinder",
+        "args": [
+                "../mapas/mapa_teste.map",  // Exemplo de argumento para o caminho do arquivo
+                "BFS",     // Exemplo de argumento para o identificador do método
+                "4", "3",               // Exemplos de coordenadas xi, yi
+                "2", "1"                // Exemplos de coordenadas xf, yf
+            ],
+        "stopAtEntry": true,
+        "cwd": "${fileDirname}",
+        "environment": [],
+        "externalConsole": false,
+        "MIMode": "gdb",
+        "setupCommands": [
+            {
+                "description": "Enable pretty-printing for gdb",
+                "text": "-enable-pretty-printing",
+                "ignoreFailures": true
+            },
+            {
+                "description": "Set Disassembly Flavor to Intel",
+                "text": "-gdb-set disassembly-flavor intel",
+                "ignoreFailures": true
+            }
+        ]
+    }
+    ]
+}

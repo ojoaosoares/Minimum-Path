@@ -4,12 +4,13 @@
 #include <string>
 #include <utility>
 #include <vector>
-#include <tuple>
 
 typedef long long ll;
 
+typedef unsigned long long ull;
+
 using namespace std;
 
-pair<ll, vector<ll>> bfs(const vector<vector<char>> &map, ll x, ll y);
+pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2);
 
 #endif
