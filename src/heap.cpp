@@ -215,5 +215,12 @@ bool Comp_A_Star::operator() (const pair<double, double>& v1, const pair<double,
     return v1.second + v1.first < v2.second + v2.first;
 }
 
+bool Comp_Greedy::operator() (const pair<double, double>& v1, const pair<double, double>& v2) const {
+    // Input: (Tuple<double, double>) v1, (Tuple<double, double>) v2, the two elements being compared
+    // Complexity: O(1)
+    return v1.second < v2.second;
+}
+
 template class Heap<pair<ull, ull>, double, Comp_Dijkstra, Map_Hash_Custom>;
 template class Heap<pair<ull, ull>, pair<double, double>, Comp_A_Star, Map_Hash_Custom>;
+template class Heap<pair<ull, ull>, pair<double, double>, Comp_Greedy, Map_Hash_Custom>;

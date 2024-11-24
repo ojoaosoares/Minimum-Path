@@ -1,19 +1,20 @@
-#include "astar.hpp"
+#include "greedy.hpp"
 #include "heap.hpp"
 #include "map.hpp"
 #include "heuristic.hpp"
 #include <algorithm>
 
-pair<double, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
+
+pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     
     if (map[y1][x1] == WALL || map[y2][x2] == WALL)
         throw invalid_argument("Coordinates invalid");
 
     ull rows = map.size(), cols = map[0].size();
 
-    Map_Hash_Custom hash(rows, cols); Comp_A_Star comp;
+    Map_Hash_Custom hash(rows, cols); Comp_Greedy comp;
 
-    Heap<pair<ull, ull>, pair<double, double>, Comp_A_Star, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
+    Heap<pair<ull, ull>, pair<double, double>, Comp_Greedy, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
 
     pair<ull, ull> key(y1, x1);
     pair<double, double> distAndHeuristic;

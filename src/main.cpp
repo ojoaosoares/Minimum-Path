@@ -2,6 +2,7 @@
 #include "bfs.hpp"
 #include "dijkstra.hpp"
 #include "astar.hpp"
+#include "greedy.hpp"
 #include <iostream>
 #include <map>
 
@@ -91,7 +92,7 @@ int main(int argc, char const *argv[])
                 sizeAndPath = dijkstra(map, startX, startY, endX, endY);
                 break;
             case Greedy_ID:
-                /* code */
+                sizeAndPath = greedy(map, startX, startY, endX, endY);
                 break;
             case Astar_ID:
                 sizeAndPath = astar(map, startX, startY, endX, endY);
