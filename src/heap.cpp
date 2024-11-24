@@ -198,7 +198,7 @@ Map_Hash_Custom::Map_Hash_Custom(ull rows, ull cols) : rows(rows), cols(cols) {}
     // Complexity: O(log(1))
 
 ull Map_Hash_Custom::operator() (const pair<ull, ull>& key) const {
-    return (rows * key.first + key.second);
+    return (rows * (key.first - 1) + (key.second - 1));
     // Input: (Key) the key of the element being hashed
     // Complexity: O(1)
 }
@@ -209,4 +209,4 @@ bool Comp_Dijkstra::operator() (const double& v1, const double& v2) const {
     return v1 < v2;
 }
 
-template class Heap<pair<ll, ll>, double, Comp_Dijkstra, Map_Hash_Custom>;
+template class Heap<pair<ull, ull>, double, Comp_Dijkstra, Map_Hash_Custom>;

@@ -86,6 +86,9 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
     vector<pair<ull, ull>> finalPath;
 
+    if (!path[curY - 1][curX - 1].first && !path[curY - 1][curX - 1].second)
+        return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
+
     while (path[curY - 1][curX - 1].first != curY || path[curY - 1][curX - 1].second != curX)
     {
         switch (map[curY - 1][curX - 1])
@@ -108,8 +111,10 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
         finalPath.push_back(pair<ull, ull>(curX, curY));
 
-        curY = path[curY - 1][curX - 1].first;
-        curX = path[curY - 1][curX - 1].second;
+        ull tempY = path[curY - 1][curX - 1].first,
+        tempX = path[curY - 1][curX - 1].second;
+
+        curY = tempY; curX = tempX;
     }
 
     finalPath.push_back(pair<ull, ull>(curX, curY));

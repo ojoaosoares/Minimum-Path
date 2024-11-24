@@ -16,5 +16,7 @@ vector<vector<char>> readMap(const string &filename) {
         for (size_t c = 0; c < cols; c++)
             file >> map[r][c];
 
+    file.close();
+    
     return map;
 }
