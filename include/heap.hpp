@@ -58,4 +58,10 @@ class Comp_Dijkstra {
 
 };
 
+
+class Comp_A_Star {
+    public:
+        bool operator() (const pair<double, double>& v1, const pair<double, double>& v2) const;
+};
+
 #endif
