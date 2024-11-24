@@ -36,13 +36,13 @@ pair<double, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull 
 
     while (!priority_queue.empty())
     {
-        pair<pair<ull, ull>, pair<double, double>> curr_vertice = priority_queue.remove();
+        pair<pair<ull, ull>, pair<double, double>> keyAndValue = priority_queue.remove();
 
-        key = curr_vertice.first;
+        key = keyAndValue.first;
 
         if (key.first == y2 && key.second == x2)
         {
-            distAndHeuristic = curr_vertice.second;
+            distAndHeuristic = keyAndValue.second;
             break;
         }
 
@@ -66,7 +66,7 @@ pair<double, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull 
         {
             if (map[newKey.first][newKey.second] != WALL && !visited[newKey.first][newKey.second])
             {
-                distAndHeuristic.first = curr_vertice.second.first + terrain_types[map[newKey.first][newKey.second]];
+                distAndHeuristic.first = keyAndValue.second.first + terrain_types[map[newKey.first][newKey.second]];
 
                 distAndHeuristic.second = manhattanHeuristic(newKey.second, newKey.first, x2, y2);
 
