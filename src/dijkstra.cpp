@@ -25,77 +25,73 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
 
     while (!priority_queue.empty())
     {
-        pair<pair<ull, ull>, double> curr_vertice = priority_queue.remove();
+        pair<pair<ull, ull>, double> keyAndValue = priority_queue.remove();
 
-        pair<ull, ull> coor = curr_vertice.first;
+        key = keyAndValue.first;
 
-        if (coor.first == y2 && coor.second == x2)
+        if (key.first == y2 && key.second == x2)
         {
-            distance = curr_vertice.second;
+            distance = keyAndValue.second;
             break;
         }
 
-        //coor.first--; coor.second--; // To follow the matrix index
-
-        visited[coor.first][coor.second] = true;
+        visited[key.first][key.second] = true;
 
         vector<pair<ull, ull>> explore;
 
-        if (coor.first > 0)
-            explore.push_back(pair<ull, ull>(coor.first - 1, coor.second));
+        if (key.first > 0)
+            explore.push_back(pair<ull, ull>(key.first - 1, key.second));
 
-        if (coor.first + 1 < rows)
-            explore.push_back(pair<ull, ull>(coor.first + 1, coor.second));
+        if (key.first + 1 < rows)
+            explore.push_back(pair<ull, ull>(key.first + 1, key.second));
 
-        if (coor.second > 0)
-            explore.push_back(pair<ull, ull>(coor.first, coor.second - 1));
+        if (key.second > 0)
+            explore.push_back(pair<ull, ull>(key.first, key.second - 1));
 
-        if (coor.second + 1 < cols)
-            explore.push_back(pair<ull, ull>(coor.first, coor.second + 1));
+        if (key.second + 1 < cols)
+            explore.push_back(pair<ull, ull>(key.first, key.second + 1));
 
-        for (pair<ull, ull> exCoor : explore)
+        for (pair<ull, ull> newKey : explore)
         {
-            if (map[exCoor.first][exCoor.second] != WALL && !visited[exCoor.first][exCoor.second])
+            if (map[newKey.first][newKey.second] != WALL && !visited[newKey.first][newKey.second])
             {
-                distance = curr_vertice.second + terrain_types[map[exCoor.first][exCoor.second]];
+                distance = keyAndValue.second + terrain_types[map[newKey.first][newKey.second]];
 
-                pair<ull, ull> key = {exCoor.first, exCoor.second};
-
-                pair<pair<ull, ull>, double> *exist = priority_queue.contains(key);
+                pair<pair<ull, ull>, double> *exist = priority_queue.contains(newKey);
 
                 if (exist == nullptr)
                 {
-                    priority_queue.insert(key, distance);
-                    path[exCoor.first][exCoor.second] = pair<ull, ull>(coor.first + 1, coor.second + 1);
+                    priority_queue.insert(newKey, distance);
+                    path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
                 }
                 
                 else if (distance < exist->second)
                 {
-                    priority_queue.update(key, distance);
-                    path[exCoor.first][exCoor.second] = pair<ull, ull>(coor.first + 1, coor.second + 1);
+                    priority_queue.update(newKey, distance);
+                    path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
                 }
             }
         }
     }
 
-    ull curX = x2, curY = y2;
+    ull currX = x2, currY = y2;
 
     vector<pair<ull, ull>> finalPath;
 
-    if (!path[curY][curX].first && !path[curY][curX].second)
+    if (!path[currY][currX].first && !path[currY][currX].second)
         return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
 
-    while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
+    while (path[currY][currX].first != currY + 1 || path[currY][currX].second != currX + 1)
     {
-        finalPath.push_back(pair<ull, ull>(curX, curY));
+        finalPath.push_back(pair<ull, ull>(currX, currY));
 
-        ull tempY = path[curY][curX].first - 1,
-        tempX = path[curY][curX].second - 1;
+        ull tempY = path[currY][currX].first - 1,
+        tempX = path[currY][currX].second - 1;
 
-        curY = tempY; curX = tempX;
+        currY = tempY; currX = tempX;
     }
 
-    finalPath.push_back(pair<ull, ull>(curX, curY));
+    finalPath.push_back(pair<ull, ull>(currX, currY));
 
     reverse(finalPath.begin(), finalPath.end());
     
