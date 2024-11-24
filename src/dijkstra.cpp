@@ -53,30 +53,11 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
         if (coor.second + 1 < cols)
             explore.push_back(pair<ull, ull>(coor.first, coor.second + 1));
 
-
         for (pair<ull, ull> exCoor : explore)
         {
             if (map[exCoor.first][exCoor.second] != WALL && !visited[exCoor.first][exCoor.second])
             {
-                distance = curr_vertice.second; // update distance
-
-                switch (map[exCoor.first][exCoor.second])
-                {
-                    case GRASS:
-                        distance += GRASS_VALUE;
-                        break;  
-                    case HIGH_GRASS:
-                        distance += HIGH_GRASS_VALUE;
-                        break;
-                    case WATER:
-                        distance += WATER_VALUE;
-                        break;
-                    case FIRE:
-                        distance += FIRE_VALUE;
-                        break;
-                    default:
-                        break;
-                }
+                distance = curr_vertice.second + terrain_types[map[exCoor.first][exCoor.second]];
 
                 pair<ull, ull> key = {exCoor.first, exCoor.second};
 

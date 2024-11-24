@@ -125,29 +125,8 @@ int main(int argc, char const *argv[])
         double total = 0;
 
         for (auto it = path.begin() + 1; it != path.end(); it++)
-        {
-            switch (map[it->second][it->first])
-            {
-                case GRASS:
-                    total += GRASS_VALUE;
-                    break;  
-                case HIGH_GRASS:
-                    total += HIGH_GRASS_VALUE;
-                    break;
-                case WATER:
-                    total += WATER_VALUE;
-                    break;
-                case FIRE:
-                    total += FIRE_VALUE;
-                    break;
-                default:
-                    cout << "Falha";
-                    break;
-            }    
-        }
-
+            total += terrain_types[map[it->second][it->first]];   
         
-
         cout << total << '\n';
         
     }

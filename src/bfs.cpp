@@ -88,23 +88,7 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
     while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
     {
-        switch (map[curY][curX])
-        {
-            case GRASS:
-                pathSize += GRASS_VALUE;
-                break;  
-            case HIGH_GRASS:
-                pathSize += HIGH_GRASS_VALUE;
-                break;
-            case WATER:
-                pathSize += WATER_VALUE;
-                break;
-            case FIRE:
-                pathSize += FIRE_VALUE;
-                break;
-            default:
-                break;
-        }
+        pathSize += terrain_types[map[curY][curX]];
 
         finalPath.push_back(pair<ull, ull>(curX, curY));
 

@@ -1,5 +1,12 @@
 #include "map.hpp"
 
+unordered_map<char, double> terrain_types = {
+    {GRASS, GRASS_VALUE},
+    {HIGH_GRASS, HIGH_GRASS_VALUE},
+    {WATER, WATER_VALUE},
+    {FIRE, FIRE_VALUE}
+};
+
 vector<vector<char>> readMap(const string &filename) {
     ifstream file(filename);
 
