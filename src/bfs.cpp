@@ -20,12 +20,8 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
     path[y1][x1] = pair<ull, ull>(y1 + 1, x1 + 1);
 
-    // ull layer = 0;
-
     if (y1 != y2 || x1 != x2)
     {
-        // layer = 1;
-
         while (!vertexQueue.empty())
         {
             bool found = false;
@@ -37,70 +33,68 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
                 vertexQueue.pop();
             }
             
-            for (pair<ull, ull> &coor : layerVertices)
+            for (pair<ull, ull> &key : layerVertices)
             {
                 vector<pair<ull, ull>> explore;
 
-                if (coor.first > 0)
-                    explore.push_back(pair<ull, ull>(coor.first - 1, coor.second));
+                if (key.first > 0) //Try to go down
+                    explore.push_back(pair<ull, ull>(key.first - 1, key.second));
 
-                if (coor.first + 1 < rows)
-                    explore.push_back(pair<ull, ull>(coor.first + 1, coor.second));
+                if (key.first + 1 < rows) // Try to go up
+                    explore.push_back(pair<ull, ull>(key.first + 1, key.second));
 
-                if (coor.second > 0)
-                    explore.push_back(pair<ull, ull>(coor.first, coor.second - 1));
+                if (key.second > 0) // Try to go left
+                    explore.push_back(pair<ull, ull>(key.first, key.second - 1));
 
-                if (coor.second + 1 < cols)
-                    explore.push_back(pair<ull, ull>(coor.first, coor.second + 1));
+                if (key.second + 1 < cols) // Try to go right
+                    explore.push_back(pair<ull, ull>(key.first, key.second + 1));
 
 
-                for (pair<ull, ull> exCoor : explore)
+                for (pair<ull, ull> newKey : explore)
                 {
-                    if (map[exCoor.first][exCoor.second] != WALL && !path[exCoor.first][exCoor.second].first && !path[exCoor.first][exCoor.second].second) {
+                    if (map[newKey.first][newKey.second] != WALL && !path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
 
-                        path[exCoor.first][exCoor.second] = pair<ull, ull>(coor.first + 1, coor.second + 1);
+                        path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
 
-                        if (exCoor.first == y2 && exCoor.second == x2)
+                        if (newKey.first == y2 && newKey.second == x2)
                         {
                             found = true;
                             break;
                         }
 
-                        vertexQueue.push(pair<ull, ull>(exCoor.first, exCoor.second));
+                        vertexQueue.push(pair<ull, ull>(newKey.first, newKey.second));
                     }
                 }
             }
 
             if (found) break;
-
-            // layer++;
         }
     }
 
-    ull curX = x2, curY = y2;
+    ull currX = x2, currY = y2;
 
-    double pathSize = 0;
+    double distance = 0;
 
     vector<pair<ull, ull>> finalPath;
 
-    if (!path[curY][curX].first && !path[curY][curX].second)
+    if (!path[currY][currX].first && !path[currY][currX].second)
         return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
 
-    while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
+    while (path[currY][currX].first != currY + 1 || path[currY][currX].second != currX + 1)
     {
-        pathSize += terrain_types[map[curY][curX]];
+        distance += terrain_types[map[currY][currX]];
 
-        finalPath.push_back(pair<ull, ull>(curX, curY));
+        finalPath.push_back(pair<ull, ull>(currX, currY));
 
-        ull tempY = path[curY][curX].first - 1,
-        tempX = path[curY][curX].second - 1;
+        ull tempY = path[currY][currX].first - 1,
+        tempX = path[currY][currX].second - 1;
 
-        curY = tempY; curX = tempX;
+        currY = tempY; currX = tempX;
     }
 
-    finalPath.push_back(pair<ull, ull>(curX, curY));
+    finalPath.push_back(pair<ull, ull>(currX, currY));
 
     reverse(finalPath.begin(), finalPath.end());
     
-    return pair<double, vector<pair<ull, ull>>>(pathSize, finalPath);    
+    return pair<double, vector<pair<ull, ull>>>(distance, finalPath);    
 }
