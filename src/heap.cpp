@@ -198,7 +198,7 @@ Map_Hash_Custom::Map_Hash_Custom(ull rows, ull cols) : rows(rows), cols(cols) {}
     // Complexity: O(log(1))
 
 ull Map_Hash_Custom::operator() (const pair<ull, ull>& key) const {
-    return (rows * (key.first - 1) + (key.second - 1));
+    return (rows * (key.first) + (key.second));
     // Input: (Key) the key of the element being hashed
     // Complexity: O(1)
 }

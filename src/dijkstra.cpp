@@ -5,7 +5,7 @@
 
 pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     
-    if (map[y1-1][x1-1] == WALL || map[y2-1][x2-1] == WALL)
+    if (map[y1][x1] == WALL || map[y2][x2] == WALL)
         throw invalid_argument("Coordinates invalid");
 
     ull rows = map.size(), cols = map[0].size();
@@ -20,8 +20,8 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
 
-    path[y1 - 1][x1 - 1] = pair<ull, ull>(y1, x1);
-    visited[y1 - 1][x1 - 1] = true;
+    path[y1][x1] = pair<ull, ull>(y1 + 1, x1 + 1);
+    visited[y1][x1] = true;
 
     while (!priority_queue.empty())
     {
@@ -35,7 +35,7 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
             break;
         }
 
-        coor.first--; coor.second--; // To follow the matrix index
+        //coor.first--; coor.second--; // To follow the matrix index
 
         visited[coor.first][coor.second] = true;
 
@@ -78,7 +78,7 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
                         break;
                 }
 
-                pair<ull, ull> key = {exCoor.first + 1, exCoor.second + 1};
+                pair<ull, ull> key = {exCoor.first, exCoor.second};
 
                 pair<pair<ull, ull>, double> *exist = priority_queue.contains(key);
 
@@ -101,15 +101,15 @@ pair<double, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, u
 
     vector<pair<ull, ull>> finalPath;
 
-    if (!path[curY - 1][curX - 1].first && !path[curY - 1][curX - 1].second)
+    if (!path[curY][curX].first && !path[curY][curX].second)
         return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
 
-    while (path[curY - 1][curX - 1].first != curY || path[curY - 1][curX - 1].second != curX)
+    while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
     {
         finalPath.push_back(pair<ull, ull>(curX, curY));
 
-        ull tempY = path[curY - 1][curX - 1].first,
-        tempX = path[curY - 1][curX - 1].second;
+        ull tempY = path[curY][curX].first - 1,
+        tempX = path[curY][curX].second - 1;
 
         curY = tempY; curX = tempX;
     }
