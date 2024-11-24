@@ -126,8 +126,7 @@ int main(int argc, char const *argv[])
 
         for (auto it = path.begin() + 1; it != path.end(); it++)
         {
-            it->second++; it->first++;
-            switch (map[it->second - 1][it->first - 1])
+            switch (map[it->second][it->first])
             {
                 case GRASS:
                     total += GRASS_VALUE;
