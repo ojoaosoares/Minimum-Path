@@ -216,4 +216,4 @@ bool Comp_A_Star::operator() (const pair<double, double>& v1, const pair<double,
 }
 
 template class Heap<pair<ull, ull>, double, Comp_Dijkstra, Map_Hash_Custom>;
-template class Heap<pair<ll, ll>, pair<double, double>, Comp_A_Star, Map_Hash_Custom>;
+template class Heap<pair<ull, ull>, pair<double, double>, Comp_A_Star, Map_Hash_Custom>;

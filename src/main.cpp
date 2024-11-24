@@ -1,6 +1,7 @@
 #include "map.hpp"
 #include "bfs.hpp"
 #include "dijkstra.hpp"
+#include "astar.hpp"
 #include <iostream>
 #include <map>
 
@@ -93,7 +94,7 @@ int main(int argc, char const *argv[])
                 /* code */
                 break;
             case Astar_ID:
-                /* code */
+                sizeAndPath = astar(map, startX, startY, endX, endY);
                 break;
             default:
                 cout << "Unknown method\n";
