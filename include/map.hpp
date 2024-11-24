@@ -5,6 +5,7 @@
 #include <sstream>
 #include <vector>
 #include <string>
+#include <unordered_map>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ typedef long long ll;
 #define FIRE 'x'
 #define FIRE_VALUE 6.0
 #define WALL '@'
+
+extern unordered_map<char, double> terrain_types;
 
 vector<vector<char>> readMap(const string &filename);
 
