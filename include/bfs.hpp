@@ -1,7 +1,6 @@
 #ifndef BPS_HPP
 #define BFS_HPP
 
-#include <string>
 #include <utility>
 #include <vector>
 

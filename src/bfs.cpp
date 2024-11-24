@@ -8,7 +8,7 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
     // Complexity: O(V + E)
     // Output: double path size, vector<pair<int, int>> path
 
-    if (map[y1-1][x1-1] == WALL || map[y2-1][x2-1] == WALL)
+    if (map[y1][x1] == WALL || map[y2][x2] == WALL)
         throw invalid_argument("Coordinates invalid");
 
     ull rows = map.size(), cols = map[0].size();
@@ -18,7 +18,7 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
 
-    path[y1 - 1][x1 - 1] = pair<ull, ull>(y1, x1);
+    path[y1][x1] = pair<ull, ull>(y1 + 1, x1 + 1);
 
     // ull layer = 0;
 
@@ -39,9 +39,6 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
             
             for (pair<ull, ull> &coor : layerVertices)
             {
-                coor.first--; coor.second--;
-                // To follow the matrix index
-
                 vector<pair<ull, ull>> explore;
 
                 if (coor.first > 0)
@@ -63,13 +60,13 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
                         path[exCoor.first][exCoor.second] = pair<ull, ull>(coor.first + 1, coor.second + 1);
 
-                        if (exCoor.first + 1 == y2 && exCoor.second + 1 == x2)
+                        if (exCoor.first == y2 && exCoor.second == x2)
                         {
                             found = true;
                             break;
                         }
 
-                        vertexQueue.push(pair<ull, ull>(exCoor.first +  1, exCoor.second + 1));
+                        vertexQueue.push(pair<ull, ull>(exCoor.first, exCoor.second));
                     }
                 }
             }
@@ -86,9 +83,12 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
     vector<pair<ull, ull>> finalPath;
 
-    while (path[curY - 1][curX - 1].first != curY || path[curY - 1][curX - 1].second != curX)
+    if (!path[curY][curX].first && !path[curY][curX].second)
+        return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
+
+    while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
     {
-        switch (map[curY - 1][curX - 1])
+        switch (map[curY][curX])
         {
             case GRASS:
                 pathSize += GRASS_VALUE;
@@ -108,8 +108,10 @@ pair<double, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1
 
         finalPath.push_back(pair<ull, ull>(curX, curY));
 
-        curY = path[curY - 1][curX - 1].first;
-        curX = path[curY - 1][curX - 1].second;
+        ull tempY = path[curY][curX].first - 1,
+        tempX = path[curY][curX].second - 1;
+
+        curY = tempY; curX = tempX;
     }
 
     finalPath.push_back(pair<ull, ull>(curX, curY));

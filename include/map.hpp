@@ -12,7 +12,7 @@ typedef long long ll;
 
 #define GRASS '.'
 #define GRASS_VALUE 1.0
-#define HIGH_GRASS ':'
+#define HIGH_GRASS ';'
 #define HIGH_GRASS_VALUE 1.5
 #define WATER '+'
 #define WATER_VALUE 2.5
