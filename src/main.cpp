@@ -3,6 +3,7 @@
 #include "dijkstra.hpp"
 #include "astar.hpp"
 #include "greedy.hpp"
+#include "dfs.hpp"
 #include <iostream>
 #include <map>
 
@@ -15,13 +16,15 @@ typedef long long ll;
 #define UCS_ID 3
 #define Greedy_ID 4
 #define Astar_ID 5
+#define DFS 6
 
 map<string, int> methodMap = {
     {"BFS", BFS_ID},
     {"IDS", IDS_ID},
     {"UCS", UCS_ID},
     {"Greedy", Greedy_ID},
-    {"Astar", Astar_ID}
+    {"Astar", Astar_ID},
+    {"DFS", DFS}
 };
 
 vector<pair<ll, ll>> readCoordinates(const string& filename) {
@@ -96,6 +99,9 @@ int main(int argc, char const *argv[])
                 break;
             case Astar_ID:
                 sizeAndPath = astar(map, startX, startY, endX, endY);
+                break;
+            case DFS:
+                sizeAndPath = dfs(map, startX, startY, endX, endY);
                 break;
             default:
                 cout << "Unknown method\n";

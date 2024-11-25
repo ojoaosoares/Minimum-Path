@@ -1,9 +1,8 @@
 #include "dfs.hpp"
 #include "map.hpp"
 #include <algorithm>
-#include <limits> 
 
-pair<double, vector<pair<ull, ull>>> dfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, ull maxDepth = numeric_limits<ull>::max()) {
+pair<double, vector<pair<ull, ull>>> dfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, ull maxDepth) {
     // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates , (int) maxDepth
     // Complexity: O(V + E)
     // Output: double path size, vector<pair<int, int>> path
@@ -14,6 +13,7 @@ pair<double, vector<pair<ull, ull>>> dfs(const vector<vector<char>> &map, ull x1
     ull rows = map.size(), cols = map[0].size();
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
+    path[y1][x1] = pair<ull, ull>(y1 + 1, x1 + 1);
 
     recdfs(map, x1, y1, x2, y2, path, 0, maxDepth);
 
