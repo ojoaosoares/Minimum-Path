@@ -54,30 +54,33 @@ bool recdfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, vec
 
     vector<pair<ull, ull>> explore;
 
-    if (key.first > 0) //Try to go down
+    if (currDepth != maxDepth)
+    {
+        if (key.first > 0) //Try to go down
         explore.push_back(pair<ull, ull>(key.first - 1, key.second));
 
-    if (key.first + 1 < rows) // Try to go up
-        explore.push_back(pair<ull, ull>(key.first + 1, key.second));
+        if (key.first + 1 < rows) // Try to go up
+            explore.push_back(pair<ull, ull>(key.first + 1, key.second));
 
-    if (key.second > 0) // Try to go left
-        explore.push_back(pair<ull, ull>(key.first, key.second - 1));
+        if (key.second > 0) // Try to go left
+            explore.push_back(pair<ull, ull>(key.first, key.second - 1));
 
-    if (key.second + 1 < cols) // Try to go right
-        explore.push_back(pair<ull, ull>(key.first, key.second + 1));
+        if (key.second + 1 < cols) // Try to go right
+            explore.push_back(pair<ull, ull>(key.first, key.second + 1));
 
-    for (pair<ull, ull> newKey : explore)
-    {
-        if (map[newKey.first][newKey.second] != WALL && !path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
+        for (pair<ull, ull> newKey : explore)
+        {
+            if (map[newKey.first][newKey.second] != WALL && !path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
 
-            path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
+                path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
 
-            if (newKey.first == y2 && newKey.second == x2)    
-                return true;
+                if (newKey.first == y2 && newKey.second == x2)    
+                    return true;
 
-            if (recdfs(map, newKey.second, newKey.first, x2, y2, path, currDepth + 1, maxDepth))
-                return true;
-        }
+                if (recdfs(map, newKey.second, newKey.first, x2, y2, path, currDepth + 1, maxDepth))
+                    return true;
+            }
+        }   
     }
 
     return false;

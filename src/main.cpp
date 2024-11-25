@@ -4,6 +4,7 @@
 #include "astar.hpp"
 #include "greedy.hpp"
 #include "dfs.hpp"
+#include "ids.hpp"
 #include <iostream>
 #include <map>
 
@@ -89,7 +90,7 @@ int main(int argc, char const *argv[])
                 sizeAndPath = bfs(map, startX, startY, endX, endY);
                 break;
             case IDS_ID:
-                /* code */
+                sizeAndPath = ids(map, startX, startY, endX, endY);
                 break;
             case UCS_ID:
                 sizeAndPath = dijkstra(map, startX, startY, endX, endY);
