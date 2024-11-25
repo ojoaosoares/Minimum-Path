@@ -1,16 +1,9 @@
 #ifndef DFS_HPP
 #define DFS_HPP
 
-#include <vector>
-#include <string>
-#include <limits> 
-
-typedef long long ll;
-
-using namespace std;
-
 #include <utility>
 #include <vector>
+#include <limits>
 
 typedef long long ll;
 
