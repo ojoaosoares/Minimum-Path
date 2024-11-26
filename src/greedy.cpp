@@ -7,9 +7,6 @@
 
 pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     
-    if (map[y1][x1] == WALL || map[y2][x2] == WALL)
-        throw invalid_argument("Coordinates invalid");
-
     ull rows = map.size(), cols = map[0].size();
 
     Map_Hash_Custom hash(rows, cols); Comp_Greedy comp;
@@ -19,11 +16,8 @@ pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ul
     results result = {0, 0, 0, 0};
 
     pair<ull, ull> key(y1, x1);
-    pair<double, double> distAndHeuristic;
+    pair<double, double> distAndHeuristic(0, manhattanHeuristic(x1, y1, x2, y2));
 
-    distAndHeuristic.first = 0;
-    distAndHeuristic.second =  manhattanHeuristic(x1, y1, x2, y2);
-    
     priority_queue.insert(key, distAndHeuristic);
     result.nodesReached++; result.nodesAnalyzed++;
 

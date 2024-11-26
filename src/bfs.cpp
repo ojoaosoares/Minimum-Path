@@ -8,9 +8,6 @@ pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x
     // Complexity: O(V + E)
     // Output: double path size, vector<pair<int, int>> path
 
-    if (map[y1][x1] == WALL || map[y2][x2] == WALL)
-        throw invalid_argument("Coordinates invalid");
-
     ull rows = map.size(), cols = map[0].size();
 
     queue<pair<ll, ll>> vertexQueue;

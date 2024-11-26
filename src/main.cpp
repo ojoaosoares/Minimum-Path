@@ -69,15 +69,30 @@ int main(int argc, char const *argv[])
     {
 
         string mapFilename = argv[1];
-        string algId = argv[2];
-
-        ll startX = (ll) atoi(argv[3]);
-        ll startY = (ll) atoi(argv[4]);
-
-        ll endX = (ll) atoi(argv[5]);
-        ll endY = (ll) atoi(argv[6]);    
+        string algId = argv[2];    
 
         vector<vector<char>> map = readMap(mapFilename);
+
+        ll x1 = (ll) atoi(argv[3]);
+        ll y1 = (ll) atoi(argv[4]);
+
+        ll x2 = (ll) atoi(argv[5]);
+        ll y2 = (ll) atoi(argv[6]);
+
+        try
+        {
+            if (map[y1][x1] == WALL || map[y2][x2] == WALL)
+                throw invalid_argument("Coordinates invalid");
+
+            ll rows = map.size(), cols = map[0].size();
+
+            if (y1 < 0 || y1 >= rows || y2 < 0 || y2 >= rows || x1 < 0 || x1 >= cols || x1 < 0 || x2 >= cols)
+                throw out_of_range("Coordinates out of range");
+        }
+        catch(const std::exception& e)
+        {
+            std::cerr << e.what() << '\n';
+        }
         
         auto methodMapIt = methodMap.find(algId);
 
@@ -87,27 +102,27 @@ int main(int argc, char const *argv[])
             switch (methodMapIt->second)
             {
             case BFS_ID:
-                resultAndPath = bfs(map, startX, startY, endX, endY);
+                resultAndPath = bfs(map, x1, y1, x2, y2);
                 break;
             case IDS_ID:
-                // sizeAndPath = ids(map, startX, startY, endX, endY);
+                resultAndPath = ids(map, x1, y1, x2, y2);
                 break;
             case UCS_ID:
-                resultAndPath = dijkstra(map, startX, startY, endX, endY);
+                resultAndPath = dijkstra(map, x1, y1, x2, y2);
                 break;
             case Greedy_ID:
-                resultAndPath = greedy(map, startX, startY, endX, endY);
+                resultAndPath = greedy(map, x1, y1, x2, y2);
                 break;
             case Astar_ID:
-                resultAndPath = astar(map, startX, startY, endX, endY);
+                resultAndPath = astar(map, x1, y1, x2, y2);
                 break;
             case DFS:
-                resultAndPath = dfs(map, startX, startY, endX, endY);
+                resultAndPath = dfs(map, x1, y1, x2, y2);
                 break;
             default:
                 cout << "Unknown method\n";
                 return 1;
-            }
+            }   
 
         else
         {

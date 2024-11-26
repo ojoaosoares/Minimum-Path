@@ -4,9 +4,6 @@
 #include "map.hpp"
 
 pair<results, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
-    
-    if (map[y1][x1] == WALL || map[y2][x2] == WALL)
-        throw invalid_argument("Coordinates invalid");
 
     ull rows = map.size(), cols = map[0].size();
 
