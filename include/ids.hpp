@@ -3,10 +3,7 @@
 
 #include <utility>
 #include <vector>
-
-typedef long long ll;
-
-typedef unsigned long long ull;
+#include "results.hpp"
 
 using namespace std;
 

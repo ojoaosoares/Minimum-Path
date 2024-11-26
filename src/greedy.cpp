@@ -5,7 +5,7 @@
 #include <algorithm>
 
 
-pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
+pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     
     if (map[y1][x1] == WALL || map[y2][x2] == WALL)
         throw invalid_argument("Coordinates invalid");
@@ -16,6 +16,8 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
 
     Heap<pair<ull, ull>, pair<double, double>, Comp_Greedy, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
 
+    results result = {0, 0, 0, 0};
+
     pair<ull, ull> key(y1, x1);
     pair<double, double> distAndHeuristic;
 
@@ -23,6 +25,7 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
     distAndHeuristic.second =  manhattanHeuristic(x1, y1, x2, y2);
     
     priority_queue.insert(key, distAndHeuristic);
+    result.nodesReached++; result.nodesAnalyzed++;
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
@@ -33,12 +36,13 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
     while (!priority_queue.empty())
     {
         pair<pair<ull, ull>, pair<double, double>> keyAndValue = priority_queue.remove();
+        result.nodesExplored++;
 
         key = keyAndValue.first;
 
         if (key.first == y2 && key.second == x2)
         {
-            distAndHeuristic = keyAndValue.second;
+            result.distance = keyAndValue.second.first;
             break;
         }
 
@@ -72,12 +76,14 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
                 {
                     priority_queue.insert(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
+                    result.nodesReached++; result.nodesAnalyzed++;
                 }
                 
                 else if (distAndHeuristic.first < exist->second.first)
                 {
                     priority_queue.update(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
+                    result.nodesAnalyzed++;
                 }
             }
         }
@@ -88,7 +94,10 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
     vector<pair<ull, ull>> finalPath;
 
     if (!path[curY][curX].first && !path[curY][curX].second)
-        return pair<double, vector<pair<ull, ull>>>(-1, finalPath);   
+    {
+        result.distance = -1;
+        return pair<results, vector<pair<ull, ull>>>(result, finalPath);  
+    }
 
     while (path[curY][curX].first != curY + 1 || path[curY][curX].second != curX + 1)
     {
@@ -104,5 +113,5 @@ pair<double, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull
 
     reverse(finalPath.begin(), finalPath.end());
     
-    return pair<double, vector<pair<ull, ull>>>(distAndHeuristic.first, finalPath);   
+    return pair<results, vector<pair<ull, ull>>>(result, finalPath);
 }

@@ -65,7 +65,7 @@ vector<pair<ll, ll>> readCoordinates(const string& filename) {
 
 int main(int argc, char const *argv[])
 {
-    if (argc == 7)
+    if (argc >= 7)
     {
 
         string mapFilename = argv[1];
@@ -81,28 +81,28 @@ int main(int argc, char const *argv[])
         
         auto methodMapIt = methodMap.find(algId);
 
-        pair<double, vector<pair<ull, ull>>> sizeAndPath;
+        pair<results, vector<pair<ull, ull>>> resultAndPath;
 
         if (methodMapIt != methodMap.end())
             switch (methodMapIt->second)
             {
             case BFS_ID:
-                sizeAndPath = bfs(map, startX, startY, endX, endY);
+                resultAndPath = bfs(map, startX, startY, endX, endY);
                 break;
             case IDS_ID:
-                sizeAndPath = ids(map, startX, startY, endX, endY);
+                // sizeAndPath = ids(map, startX, startY, endX, endY);
                 break;
             case UCS_ID:
-                sizeAndPath = dijkstra(map, startX, startY, endX, endY);
+                resultAndPath = dijkstra(map, startX, startY, endX, endY);
                 break;
             case Greedy_ID:
-                sizeAndPath = greedy(map, startX, startY, endX, endY);
+                resultAndPath = greedy(map, startX, startY, endX, endY);
                 break;
             case Astar_ID:
-                sizeAndPath = astar(map, startX, startY, endX, endY);
+                resultAndPath = astar(map, startX, startY, endX, endY);
                 break;
             case DFS:
-                sizeAndPath = dfs(map, startX, startY, endX, endY);
+                resultAndPath = dfs(map, startX, startY, endX, endY);
                 break;
             default:
                 cout << "Unknown method\n";
@@ -115,12 +115,22 @@ int main(int argc, char const *argv[])
             return 1;
         }
 
-        cout << sizeAndPath.first << ' ';
+        cout << resultAndPath.first.distance << ' ';
 
-        for (pair<ull, ull> coor : sizeAndPath.second)
-            cout << '(' << coor.first << ',' << coor.second << ") ";
-        
+        if (argc == 8 && string(argv[7]) == "stats")
+        {
+            cout << "Size of the path: " << resultAndPath.second.size() << '\n' << "Nodes reached: " << resultAndPath.first.nodesReached << '\n'
+            << "Nodes analyzed: " <<  resultAndPath.first.nodesAnalyzed << '\n' << "Nodes explored: " << resultAndPath.first.nodesExplored << '\n';
+
+            return 0;
+        }
+
+        for (pair<ull, ull> coor : resultAndPath.second)
+        cout << '(' << coor.first << ',' << coor.second << ") ";
+    
         cout << '\n';
+        
+        return 0;
     }
 
     if (argc == 3)
@@ -137,6 +147,8 @@ int main(int argc, char const *argv[])
             total += terrain_types[map[it->second][it->first]];   
         
         cout << total << '\n';
+
+        return 0;
         
     }
 
