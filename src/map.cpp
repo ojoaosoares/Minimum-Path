@@ -27,3 +27,25 @@ vector<vector<char>> readMap(const string &filename) {
     
     return map;
 }
+
+vector<pair<ull, ull>> sucessorFunction(ull x, ull y, const vector<vector<char>> &map) {
+    
+    ull rows = map.size(), cols = map[0].size();
+
+    vector<pair<ull, ull>> explore;
+
+    if (y > 0 && map[y - 1][x] != WALL)
+        explore.push_back(pair<ull, ull>(y - 1, x));
+
+    if (y + 1 < rows && map[y + 1][x] != WALL)
+        explore.push_back(pair<ull, ull>(y + 1, x));
+
+    if (x > 0 && map[y][x - 1] != WALL)
+        explore.push_back(pair<ull, ull>(y, x - 1));
+
+    if (x + 1 < cols && map[y][x + 1] != WALL)
+        explore.push_back(pair<ull, ull>(y, x + 1));
+
+    return explore;
+
+}   
