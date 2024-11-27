@@ -11,6 +11,8 @@ using namespace std;
 
 typedef long long ll;
 
+typedef unsigned long long ull;
+
 #define GRASS '.'
 #define GRASS_VALUE 1.0
 #define HIGH_GRASS ';'
@@ -24,5 +26,7 @@ typedef long long ll;
 extern unordered_map<char, double> terrain_types;
 
 vector<vector<char>> readMap(const string &filename);
+
+vector<pair<ull, ull>> sucessorFunction(ull x, ull y, const vector<vector<char>> &map);
 
 #endif
