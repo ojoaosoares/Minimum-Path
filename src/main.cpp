@@ -29,41 +29,6 @@ map<string, int> methodMap = {
     {"DFS", DFS}
 };
 
-vector<pair<ll, ll>> readCoordinates(const string& filename) {
-    vector<pair<ll, ll>> coordinates;
-    ifstream file(filename);
-
-    if (!file.is_open()) {
-        cerr << "Erro ao abrir o arquivo: " << filename << endl;
-        return coordinates;
-    }
-
-    string line;
-    while (getline(file, line)) { // Lê linha por linha
-        istringstream ss(line); // Cria um stream para processar a linha
-        string token;
-
-        while (getline(ss, token, ' ')) { // Divide a linha nos espaços
-            if (token.empty()) continue; // Ignora tokens vazios
-
-            if (token.front() == '(' && token.back() == ')') { // Verifica se o token é um par de coordenadas
-                token = token.substr(1, token.size() - 2); // Remove os parênteses
-                istringstream pairStream(token);
-                string xStr, yStr;
-
-                if (getline(pairStream, xStr, ',') && getline(pairStream, yStr)) {
-                    int x = stoi(xStr); // Converte x para inteiro
-                    int y = stoi(yStr); // Converte y para inteiro
-                    coordinates.emplace_back(x, y); // Adiciona o par ao vetor
-                }
-            }
-        }
-    }
-
-    file.close();
-    return coordinates;
-}
-
 int main(int argc, char const *argv[])
 {
     if (argc >= 7)
@@ -166,26 +131,6 @@ int main(int argc, char const *argv[])
         
         return 0;
     }
-
-    if (argc == 3)
-    {
-        string mapFilename = argv[1];
-        string pathFilename = argv[2];
-
-        vector<vector<char>> map = readMap(mapFilename);        
-        vector<pair<ll, ll>> path = readCoordinates(pathFilename);
-
-        double total = 0;
-
-        for (auto it = path.begin() + 1; it != path.end(); it++)
-            total += terrain_types[map[it->second][it->first]];   
-        
-        cout << total << '\n';
-
-        return 0;
-        
-    }
-
 
     return 1;
 }
