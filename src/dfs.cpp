@@ -44,7 +44,7 @@ bool recdfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, vec
     if (currDepth != maxDepth)
     {
         if (key.first > 0) //Try to go down
-        explore.push_back(pair<ull, ull>(key.first - 1, key.second));
+            explore.push_back(pair<ull, ull>(key.first - 1, key.second));
 
         if (key.first + 1 < rows) // Try to go up
             explore.push_back(pair<ull, ull>(key.first + 1, key.second));
