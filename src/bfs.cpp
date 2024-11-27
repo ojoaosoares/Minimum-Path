@@ -38,24 +38,11 @@ pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x
             {
                 result.nodesExplored++;
 
-                vector<pair<ull, ull>> explore;
-
-                if (key.first > 0) //Try to go down
-                    explore.push_back(pair<ull, ull>(key.first - 1, key.second));
-
-                if (key.first + 1 < rows) // Try to go up
-                    explore.push_back(pair<ull, ull>(key.first + 1, key.second));
-
-                if (key.second > 0) // Try to go left
-                    explore.push_back(pair<ull, ull>(key.first, key.second - 1));
-
-                if (key.second + 1 < cols) // Try to go right
-                    explore.push_back(pair<ull, ull>(key.first, key.second + 1));
-
+                vector<pair<ull, ull>> explore = sucessorFunction(key.second, key.first, map);
 
                 for (pair<ull, ull> newKey : explore)
                 {
-                    if (map[newKey.first][newKey.second] != WALL && !path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
+                    if (!path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
 
                         result.nodesReached++; result.nodesAnalyzed++;
 

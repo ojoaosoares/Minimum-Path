@@ -18,7 +18,6 @@ pair<results, vector<pair<ull, ull>>> ids(const vector<vector<char>> &map, ull x
         resultAcumulator.nodesAnalyzed += resultAndPath.first.nodesAnalyzed;
         resultAcumulator.nodesReached += resultAndPath.first.nodesReached;
         resultAcumulator.nodesExplored += resultAndPath.first.nodesExplored;
-
         resultAcumulator.distance = resultAndPath.first.distance;
 
         resultAndPath.first = resultAcumulator;

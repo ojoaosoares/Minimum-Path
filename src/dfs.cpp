@@ -39,25 +39,13 @@ bool recdfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, vec
 
     pair<ull, ull> key = {y1, x1};
 
-    vector<pair<ull, ull>> explore;
-
     if (currDepth != maxDepth)
     {
-        if (key.first > 0) //Try to go down
-            explore.push_back(pair<ull, ull>(key.first - 1, key.second));
-
-        if (key.first + 1 < rows) // Try to go up
-            explore.push_back(pair<ull, ull>(key.first + 1, key.second));
-
-        if (key.second > 0) // Try to go left
-            explore.push_back(pair<ull, ull>(key.first, key.second - 1));
-
-        if (key.second + 1 < cols) // Try to go right
-            explore.push_back(pair<ull, ull>(key.first, key.second + 1));
+        vector<pair<ull, ull>> explore = sucessorFunction(key.second, key.first, map);
 
         for (pair<ull, ull> newKey : explore)
         {
-            if (map[newKey.first][newKey.second] != WALL && !path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
+            if (!path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
 
                 path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
 
