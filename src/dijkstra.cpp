@@ -40,23 +40,11 @@ pair<results, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, 
 
         visited[key.first][key.second] = true;
 
-        vector<pair<ull, ull>> explore;
-
-        if (key.first > 0)
-            explore.push_back(pair<ull, ull>(key.first - 1, key.second));
-
-        if (key.first + 1 < rows)
-            explore.push_back(pair<ull, ull>(key.first + 1, key.second));
-
-        if (key.second > 0)
-            explore.push_back(pair<ull, ull>(key.first, key.second - 1));
-
-        if (key.second + 1 < cols)
-            explore.push_back(pair<ull, ull>(key.first, key.second + 1));
+        vector<pair<ull, ull>> explore = sucessorFunction(key.second, key.first, map);
 
         for (pair<ull, ull> newKey : explore)
         {
-            if (map[newKey.first][newKey.second] != WALL && !visited[newKey.first][newKey.second])
+            if (!visited[newKey.first][newKey.second])
             {
                 distance = keyAndValue.second + terrain_types[map[newKey.first][newKey.second]];
 
