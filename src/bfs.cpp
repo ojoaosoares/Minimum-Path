@@ -5,8 +5,8 @@
 
 pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
-    // Time Complexity: O(b^d)
-    // Space Complexity: O(number of nodes)
+    // Time Complexity: O(b^d) // d is the shortest solution size
+    // Space Complexity: O(b^d)
     // Complete: yes
     // Optimal: Yes, if the cost of all steps are uniform
     // Output: results, vector<pair<int, int>> path
