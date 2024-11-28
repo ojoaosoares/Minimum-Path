@@ -13,13 +13,12 @@ pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ul
 
     Heap<pair<ull, ull>, pair<double, double>, Comp_Greedy, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
 
-    results result = {0, 0, 0, 0};
+    results result = {0, 0};
 
     pair<ull, ull> key(y1, x1);
     pair<double, double> distAndHeuristic(0, manhattanHeuristic(x1, y1, x2, y2));
 
     priority_queue.insert(key, distAndHeuristic);
-    result.nodesReached++; result.nodesAnalyzed++;
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
@@ -30,7 +29,7 @@ pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ul
     while (!priority_queue.empty())
     {
         pair<pair<ull, ull>, pair<double, double>> keyAndValue = priority_queue.remove();
-        result.nodesExplored++;
+        result.nodesExpanded++;
 
         key = keyAndValue.first;
 
@@ -58,14 +57,12 @@ pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ul
                 {
                     priority_queue.insert(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesReached++; result.nodesAnalyzed++;
                 }
                 
                 else if (distAndHeuristic.first < exist->second.first)
                 {
                     priority_queue.update(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesAnalyzed++;
                 }
             }
         }

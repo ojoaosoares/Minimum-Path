@@ -7,17 +7,15 @@ pair<results, vector<pair<ull, ull>>> ids(const vector<vector<char>> &map, ull x
 {
     pair<results, vector<pair<ull, ull>>> resultAndPath;
 
-    results resultAcumulator = {0, 0, 0, 0};
+    results resultAcumulator = {0, 0};
 
     ull minimumDepth = (ull) manhattanHeuristic(x1, y1, x2, y2);
 
     for (size_t i = minimumDepth; i < numeric_limits<ull>::max(); i++)
     {    
         resultAndPath = dfs(map, x1, y1, x2, y2, i);
-
-        resultAcumulator.nodesAnalyzed += resultAndPath.first.nodesAnalyzed;
-        resultAcumulator.nodesReached += resultAndPath.first.nodesReached;
-        resultAcumulator.nodesExplored += resultAndPath.first.nodesExplored;
+        
+        resultAcumulator.nodesExpanded += resultAndPath.first.nodesExpanded;
         resultAcumulator.distance = resultAndPath.first.distance;
 
         resultAndPath.first = resultAcumulator;

@@ -116,8 +116,9 @@ int main(int argc, char const *argv[])
 
         if (argc == 8 && string(argv[7]) == "stats")
         {
-            cout << "Size of the path: " << resultAndPath.second.size() << '\n' << "Nodes reached: " << resultAndPath.first.nodesReached << '\n'
-            << "Nodes analyzed: " <<  resultAndPath.first.nodesAnalyzed << '\n' << "Nodes explored: " << resultAndPath.first.nodesExplored << '\n';
+            cout << "Size of the path: " << resultAndPath.second.size() << '\n' <<
+            "Nodes expanded: " << resultAndPath.first.nodesExpanded << '\n';
+            
             std::chrono::duration<double> duracao = end - start;
             cout << "Tempo de execução: " << duracao.count() << " segundos\n";
 

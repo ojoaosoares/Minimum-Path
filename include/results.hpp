@@ -7,9 +7,7 @@ typedef unsigned long long ull;
 typedef struct results
 {
     double distance;
-    ull nodesReached;
-    ull nodesAnalyzed;
-    ull nodesExplored;
+    ull nodesExpanded;
 
 } results;
 

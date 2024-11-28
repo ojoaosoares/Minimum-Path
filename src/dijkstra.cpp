@@ -11,13 +11,12 @@ pair<results, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, 
 
     Heap<pair<ull, ull>, double, Comp_Dijkstra, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
 
-    results result = {0, 0, 0, 0};
+    results result = {0, 0};
 
     pair<ull, ull> key(y1, x1); 
     double distance = 0;
     
     priority_queue.insert(key, distance);
-    result.nodesReached++; result.nodesAnalyzed++;
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
@@ -28,7 +27,7 @@ pair<results, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, 
     while (!priority_queue.empty())
     {
         pair<pair<ull, ull>, double> keyAndValue = priority_queue.remove();
-        result.nodesExplored++;
+        result.nodesExpanded++;
 
         key = keyAndValue.first;
 
@@ -54,14 +53,12 @@ pair<results, vector<pair<ull, ull>>> dijkstra(const vector<vector<char>> &map, 
                 {
                     priority_queue.insert(newKey, distance);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesReached++; result.nodesAnalyzed++;
                 }
                 
                 else if (distance < exist->second)
                 {
                     priority_queue.update(newKey, distance);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesAnalyzed++;
                 }
             }
         }

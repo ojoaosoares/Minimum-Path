@@ -12,8 +12,7 @@ pair<results, vector<pair<ull, ull>>> dfs(const vector<vector<char>> &map, ull x
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     path[y1][x1] = pair<ull, ull>(y1 + 1, x1 + 1);
 
-    results result = {0, 0, 0, 0};
-    result.nodesReached++; result.nodesAnalyzed++;
+    results result = {0, 0};
 
     vector<pair<ull, ull>> finalPath; 
 
@@ -33,9 +32,7 @@ pair<results, vector<pair<ull, ull>>> dfs(const vector<vector<char>> &map, ull x
 bool recdfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, vector<vector<pair<ull,ull>>> &path, results &result, vector<pair<ull,ull>> &finalPath, ull currDepth,  ull maxDepth) {
     // Input: (Graph_Ad_List) Graph, (int) the start vertice, (vector) a boolean vector that tells if a vertex was already visited, (list) a list ordered by who has the greatest finish time
     
-    ull rows = map.size(), cols = map[0].size();
-
-    result.nodesExplored++;
+    result.nodesExpanded++;
 
     pair<ull, ull> key = {y1, x1};
 
@@ -48,8 +45,6 @@ bool recdfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2, vec
             if (!path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
 
                 path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-
-                result.nodesReached++; result.nodesAnalyzed++;
 
                 if (newKey.first == y2 && newKey.second == x2)
                 {
