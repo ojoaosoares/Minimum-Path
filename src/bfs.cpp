@@ -5,8 +5,11 @@
 
 pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
-    // Complexity: O(V + E)
-    // Output: double path size, vector<pair<int, int>> path
+    // Time Complexity: O(b^d)
+    // Space Complexity: O(number of nodes)
+    // Complete: yes
+    // Optimal: Yes, if the cost of all transitions are uniform
+    // Output: results, vector<pair<int, int>> path
 
     ull rows = map.size(), cols = map[0].size();
 
