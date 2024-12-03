@@ -19,6 +19,7 @@ typedef long long ll;
 #define Greedy_ID 4
 #define Astar_ID 5
 #define DFS 6
+// #define BS_IDS 7
 
 map<string, int> methodMap = {
     {"BFS", BFS_ID},
@@ -27,6 +28,7 @@ map<string, int> methodMap = {
     {"Greedy", Greedy_ID},
     {"Astar", Astar_ID},
     {"DFS", DFS}
+    // {"BSIDS", BS_IDS}
 };
 
 int main(int argc, char const *argv[])
@@ -101,6 +103,11 @@ int main(int argc, char const *argv[])
                 resultAndPath = dfs(map, x1, y1, x2, y2);
                 end = std::chrono::high_resolution_clock::now();
                 break;
+            // case BS_IDS:
+            //     start = std::chrono::high_resolution_clock::now();
+            //     resultAndPath = bs_ids(map, x1, y1, x2, y2);
+            //     end = std::chrono::high_resolution_clock::now();
+            //     break;
             default:
                 cout << "Unknown method\n";
                 return 1;
