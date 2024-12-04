@@ -6,6 +6,12 @@
 
 
 pair<results, vector<pair<ull, ull>>> greedy(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
+    // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
+    // Time Complexity: O(b^m) m is the maximum solution size or the limited depth
+    // Space Complexity: O(b^m)
+    // Complete: no
+    // Optimal: no
+    // Output: results, vector<pair<int, int>> path
     
     ull rows = map.size(), cols = map[0].size();
 
