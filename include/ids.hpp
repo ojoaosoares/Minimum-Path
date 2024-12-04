@@ -9,6 +9,6 @@ using namespace std;
 
 pair<results, vector<pair<ull, ull>>> ids(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2);
 
-// pair<results, vector<pair<ull, ull>>> bs_ids(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2);
+pair<results, vector<pair<ull, ull>>> bs_ids(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2);
 
 #endif
