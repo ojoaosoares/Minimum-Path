@@ -7,7 +7,7 @@
 #include "ids.hpp"
 #include <iostream>
 #include <map>
-#include <chrono> // Para medir o tempo
+#include <chrono>
 
 using namespace std;
 
@@ -127,7 +127,7 @@ int main(int argc, char const *argv[])
             "Nodes expanded: " << resultAndPath.first.nodesExpanded << '\n';
             
             std::chrono::duration<double> duracao = end - start;
-            cout << "Tempo de execução: " << duracao.count() << " segundos\n";
+            cout << "Execution time: " << duracao.count() << " seconds\n";
 
             return 0;
         }
