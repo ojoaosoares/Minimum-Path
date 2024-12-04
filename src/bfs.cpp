@@ -5,17 +5,19 @@
 
 pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
     // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
-    // Complexity: O(V + E)
-    // Output: double path size, vector<pair<int, int>> path
+    // Time Complexity: O(b^d) // d is the shortest solution size
+    // Space Complexity: O(b^d)
+    // Complete: yes
+    // Optimal: Yes, if the cost of all steps are uniform
+    // Output: results, vector<pair<int, int>> path
 
     ull rows = map.size(), cols = map[0].size();
 
     queue<pair<ll, ll>> vertexQueue;
 
-    results result = {0, 0, 0, 0};
+    results result = {0, 0};
 
     vertexQueue.push(pair<ll, ll>(y1, x1));
-    result.nodesReached++; result.nodesAnalyzed++;
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
 
@@ -36,15 +38,13 @@ pair<results, vector<pair<ull, ull>>> bfs(const vector<vector<char>> &map, ull x
             
             for (pair<ull, ull> &key : layerVertices)
             {
-                result.nodesExplored++;
+                result.nodesExpanded++;
 
                 vector<pair<ull, ull>> explore = sucessorFunction(key.second, key.first, map);
 
                 for (pair<ull, ull> newKey : explore)
                 {
                     if (!path[newKey.first][newKey.second].first && !path[newKey.first][newKey.second].second) {
-
-                        result.nodesReached++; result.nodesAnalyzed++;
 
                         path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
 

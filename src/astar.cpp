@@ -5,6 +5,12 @@
 #include <algorithm>
 
 pair<results, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull x1, ull y1, ull x2, ull y2) {
+    // Input: (Matrix) Map, (int) x1, y1 start coordinates, x2, y2 end coordinates 
+    // Time Complexity: O(b^m) m is the maximum solution size or the limited depth
+    // Space Complexity: O(b^m)
+    // Complete: yes, if every step costs >= escalar
+    // Optimal: Yes, if the heuristic admissible
+    // Output: results, vector<pair<int, int>> path
     
     ull rows = map.size(), cols = map[0].size();
 
@@ -12,13 +18,12 @@ pair<results, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull
 
     Heap<pair<ull, ull>, pair<double, double>, Comp_A_Star, Map_Hash_Custom> priority_queue(rows*cols, comp, hash);
 
-    results result = {0, 0, 0, 0};
+    results result = {0, 0};
 
     pair<ull, ull> key(y1, x1);
     pair<double, double> distAndHeuristic(0, manhattanHeuristic(x1, y1, x2, y2));
     
     priority_queue.insert(key, distAndHeuristic);
-    result.nodesReached++; result.nodesAnalyzed++;
 
     vector<vector<pair<ull,ull>>> path(rows, vector<pair<ull, ull>>(cols, pair<ull, ull>(0, 0)));
     vector<vector<bool>> visited(rows, vector<bool>(cols, false));
@@ -29,7 +34,7 @@ pair<results, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull
     while (!priority_queue.empty())
     {
         pair<pair<ull, ull>, pair<double, double>> keyAndValue = priority_queue.remove();
-        result.nodesExplored++;
+        result.nodesExpanded++;
 
         key = keyAndValue.first;
 
@@ -57,14 +62,12 @@ pair<results, vector<pair<ull, ull>>> astar(const vector<vector<char>> &map, ull
                 {
                     priority_queue.insert(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesReached++; result.nodesAnalyzed++;
                 }
                 
                 else if (distAndHeuristic.first < exist->second.first)
                 {
                     priority_queue.update(newKey, distAndHeuristic);
                     path[newKey.first][newKey.second] = pair<ull, ull>(key.first + 1, key.second + 1);
-                    result.nodesAnalyzed++;
                 }
             }
         }
