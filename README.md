@@ -10,7 +10,7 @@ Este programa implementa diversos algoritmos de busca em grafos para encontrar o
 - **Greedy**: Busca Gulosa
 - **A***: Busca A*
 - **DFS**: Busca em Profundidade
-- **BSIDS**: Versão otimizada da Busca em Profundidade Iterativa
+- **BSIDS**: Busca Binária com IDS
 
 O programa oferece diferentes saídas dependendo das opções fornecidas na execução.
 
@@ -27,13 +27,14 @@ Use o seguinte comando para instalar o g++ no Ubuntu:
 
 ```bash
 sudo apt update && sudo apt install -y g++
-
+```
 ## Como compilar
 
 O projeto já inclui um arquivo Makefile para facilitar a compilação. Para compilar o programa, basta executar o seguinte comando na raiz do projeto:
 
 ```bash
 make
+```
 
 Isso irá compilar o código e gerar o executável chamado `pathfinder` na pasta `bin`.
 
@@ -73,3 +74,4 @@ O programa requer no mínimo 6 parâmetros de entrada:
 
 ```bash
 ./pathfinder mapa.txt BFS 0 0 5 5
+```
