@@ -4,18 +4,13 @@ import sys
 
 def generate_random_coordinates(coordinate_range):
     """Gera coordenadas aleatórias para x1, y1, x2, y2 com distância de Manhattan >= coordinate_range / 2."""
-    while True:
-        x1 = random.randint(0, coordinate_range - 1)
-        y1 = random.randint(0, coordinate_range - 1)
-        x2 = random.randint(0, coordinate_range - 1)
-        y2 = random.randint(0, coordinate_range - 1)
-        
-        # Calcula a distância de Manhattan
-        manhattan_distance = abs(x1 - x2) + abs(y1 - y2)
-        
-        # Verifica se a distância é maior ou igual a metade do limite
-        if manhattan_distance >= coordinate_range / 2:
-            return x1, y1, x2, y2
+    
+    x1 = random.randint(0, coordinate_range - 1)
+    y1 = random.randint(0, coordinate_range - 1)
+    x2 = random.randint(0, coordinate_range - 1)
+    y2 = random.randint(0, coordinate_range - 1)
+            
+    return x1, y1, x2, y2
 
 def execute_program(program_path, algorithm_name, map_dir, x1, y1, x2, y2):
     """Executa o programa com os parâmetros especificados e retorna a saída."""
@@ -67,9 +62,9 @@ def main():
             output = execute_program(program_path, algorithm_name, map_dir, x1, y1, x2, y2)
 
             # Verifica se a saída é válida
-            if output and "Coordinates invalid" not in output:
+            if output and "Coordinates invalid" not in output and "-1" not in output:
                 # Escreve a saída válida no arquivo
-                file.write(output + "\n")
+                file.write(output + " " + str(abs(x1 - x2) + abs(y1 - y2)) + "\n")
                 valid_count += 1
                 print(f"Saída válida #{valid_count}: {output}")
 

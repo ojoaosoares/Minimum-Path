@@ -28,14 +28,21 @@
 
 # Executables
 *.exe
-*.out
+
 *.app
 
-
 /bin/
-
-/mapas/
 
 /path/
 
 /.vscode/
+
+graph/
+
+results/
+
+*.results
+
+*.pnh
+
+.venv/
